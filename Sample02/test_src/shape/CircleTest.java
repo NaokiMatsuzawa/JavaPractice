@@ -12,7 +12,7 @@ class CircleTest {
 	@Test
 	@DisplayName("simple test")
 	void test() {
-		Circle circle = new Circle(10.0);
+		Circle circle = new Circle(new LengthValue(10.0));
 		assertThat(circle.calcArea(), is(314.1592653589793));
 	}
 
@@ -20,7 +20,7 @@ class CircleTest {
 	@DisplayName("zero test")
 	void illegal_test() {
 		Assertions.assertThrows(IllegalArgumentException.class, ()->{
-			new Circle(0.0);						
+			new Circle(new LengthValue(0.0));						
 		});
 	}
 }
