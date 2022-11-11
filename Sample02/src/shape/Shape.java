@@ -22,7 +22,7 @@ class Trapezoid implements Shape{
 	LengthValue katei;
 	LengthValue takasa;
 	
-	public Trapezoid(LengthValue jotei, LengthValue katei, LengthValue takasa) {
+	private Trapezoid(LengthValue jotei, LengthValue katei, LengthValue takasa) {
 		this.jotei = jotei;
 		this.katei = katei;
 		this.takasa = takasa;
@@ -52,7 +52,7 @@ class Trapezoid implements Shape{
 class Circle implements Shape{
 	LengthValue radius;
 	
-	public Circle(LengthValue radius) {
+	private Circle(LengthValue radius) {
 		this.radius = radius;
 	}
 

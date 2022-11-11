@@ -2,28 +2,47 @@ package shape;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TrapezoidTest {
 
-	@Test
-	void test() {
-		LengthValue jotei = new LengthValue(10.0);
-		LengthValue katei = new LengthValue(20.0);
-		LengthValue takasa = new LengthValue(5.0);
-		Trapezoid trapezoid = new Trapezoid(jotei, katei, takasa);
-		assertThat(trapezoid.calcArea(), is(75.0));
+	private final String CLASS_NAME = "shape.Trapezoid";
+	private final String METHOD_NAME = "calcArea";
+	
+	private Constructor<?> constructor;
+	private Method method;
+	
+	@BeforeEach
+	void before() {
+		try {
+			Class<?> test_class = Class.forName(CLASS_NAME);
+			constructor = test_class.getDeclaredConstructor(LengthValue.class, LengthValue.class, LengthValue.class);
+			constructor.setAccessible(true);
+			method = test_class.getMethod(METHOD_NAME);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("初期化失敗によりテスト強制終了");
+		}
 	}
 	
 	@Test
-	void test00() {
-		//平行四辺形
-		LengthValue jotei = new LengthValue(10.0);
-		LengthValue katei = new LengthValue(10.0);
-		LengthValue takasa = new LengthValue(10.0);
-		Trapezoid trapezoid = new Trapezoid(jotei, katei, takasa);
-		assertThat(trapezoid.calcArea(), is(100.0));
+	void test() {
+		try {
+			LengthValue jotei = new LengthValue(10.0);
+			LengthValue katei = new LengthValue(20.0);
+			LengthValue takasa = new LengthValue(5.0);
+			Object test_trapezoid = constructor.newInstance(jotei, katei, takasa);
+			assertThat(method.invoke(test_trapezoid), is(75.0));	
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail("例外発生によりテスト強制終了");
+		}
 	}
 
 }
