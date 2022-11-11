@@ -71,6 +71,5 @@ class Circle implements Shape{
         
 		return circle;
 	}
-	
 }
 
