@@ -34,7 +34,7 @@ class Trapezoid implements Shape{
 	}
 
 	public static Shape create() {
-        Scanner scn = new Scanner(System.in);
+        Scanner scn = system_in.SystemIn.getScanner();
 
         System.out.print("上辺 = ");
         LengthValue jotei = new LengthValue(scn.nextDouble());
@@ -44,7 +44,6 @@ class Trapezoid implements Shape{
         LengthValue takasa = new LengthValue(scn.nextDouble());
         Trapezoid trapezoid = new Trapezoid(jotei, katei, takasa);
 
-        //scn.close();
 		return trapezoid;
 	}
 }
@@ -62,7 +61,7 @@ class Circle implements Shape{
 	}
 
 	public static Shape create() {
-		Scanner scn = new Scanner(System.in);
+		Scanner scn = system_in.SystemIn.getScanner();
 
         System.out.print("半径？");
         LengthValue radius = new LengthValue(scn.nextDouble());;
