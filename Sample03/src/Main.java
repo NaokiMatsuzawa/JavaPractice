@@ -2,8 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
-		decorator_pattern_test.ShowMessageFactory factory = new decorator_pattern_test.ShowMessageFactory();
-		decorator_pattern_test.ShowMessage show_message = factory.getComponent();
+		decorator_pattern_test.ShowMessage show_message = decorator_pattern_test.ShowMessageFactory.getInstance().getComponent();
 		show_message.show();
 	}
 
