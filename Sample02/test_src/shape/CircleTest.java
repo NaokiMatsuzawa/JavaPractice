@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 class CircleTest {
 	private final String CLASS_NAME = "shape.Circle";
 	private final String METHOD_NAME = "calcArea";
+	private final DrawMethod draw_method = new shape.DrawShapeInWindows();
 
 	private Constructor<?> circle_constructor;
 	private Method method;
@@ -23,7 +24,7 @@ class CircleTest {
 	void before() {
 		try {
 			Class<?> circle_class = Class.forName(CLASS_NAME);
-			circle_constructor = circle_class.getDeclaredConstructor(LengthValue.class);
+			circle_constructor = circle_class.getDeclaredConstructor(DrawMethod.class, LengthValue.class);
 			circle_constructor.setAccessible(true);			
 			method = circle_class.getMethod(METHOD_NAME);
 		} catch (Exception e) {
@@ -38,7 +39,7 @@ class CircleTest {
 		try
 		{
 			LengthValue radius = new LengthValue(10.0);
-			Object test_circle = circle_constructor.newInstance(radius);
+			Object test_circle = circle_constructor.newInstance(draw_method, radius);
 			assertThat(method.invoke(test_circle), is(314.1592653589793));
 		}catch (Exception e) {
 			e.printStackTrace();

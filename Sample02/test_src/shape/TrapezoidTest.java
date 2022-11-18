@@ -14,6 +14,7 @@ class TrapezoidTest {
 
 	private final String CLASS_NAME = "shape.Trapezoid";
 	private final String METHOD_NAME = "calcArea";
+	private final DrawMethod draw_method = new shape.DrawShapeInWindows();
 	
 	private Constructor<?> constructor;
 	private Method method;
@@ -22,7 +23,7 @@ class TrapezoidTest {
 	void before() {
 		try {
 			Class<?> test_class = Class.forName(CLASS_NAME);
-			constructor = test_class.getDeclaredConstructor(LengthValue.class, LengthValue.class, LengthValue.class);
+			constructor = test_class.getDeclaredConstructor(DrawMethod.class, LengthValue.class, LengthValue.class, LengthValue.class);
 			constructor.setAccessible(true);
 			method = test_class.getMethod(METHOD_NAME);
 		} catch (Exception e) {
@@ -37,7 +38,7 @@ class TrapezoidTest {
 			LengthValue jotei = new LengthValue(10.0);
 			LengthValue katei = new LengthValue(20.0);
 			LengthValue takasa = new LengthValue(5.0);
-			Object test_trapezoid = constructor.newInstance(jotei, katei, takasa);
+			Object test_trapezoid = constructor.newInstance(draw_method, jotei, katei, takasa);
 			assertThat(method.invoke(test_trapezoid), is(75.0));	
 		} catch(Exception e) {
 			e.printStackTrace();

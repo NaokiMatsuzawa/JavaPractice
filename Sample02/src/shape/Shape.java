@@ -2,8 +2,9 @@ package shape;
 
 import java.util.Scanner;
 
-public interface Shape {
+interface ShapeMethod {
 	public double calcArea();
+	public void draw();
 }
 
 class LengthValue{
@@ -17,12 +18,35 @@ class LengthValue{
 	}
 }
 
-class Trapezoid implements Shape{
+public abstract class Shape implements ShapeMethod{
+	final private DrawMethod method;
+	
+	protected Shape(DrawMethod method) {
+		if(method == null) {
+			throw new IllegalArgumentException("NULLのDrawMethodが指定されました");
+		}
+		this.method = method;
+	}
+
+	@Override
+	public void draw() {
+		method.draw();
+	}
+}
+
+/*
+ * 画面に図形を描画したい場合は
+ * 円であれば中心点を
+ * 四角形であれば台形などの具体的な図形にせず、４点を指定するなどの処理に変えるべき
+ */
+
+class Trapezoid extends Shape{
 	LengthValue jotei;
 	LengthValue katei;
 	LengthValue takasa;
 	
-	private Trapezoid(LengthValue jotei, LengthValue katei, LengthValue takasa) {
+	private Trapezoid(DrawMethod method, LengthValue jotei, LengthValue katei, LengthValue takasa) {
+		super(method);
 		this.jotei = jotei;
 		this.katei = katei;
 		this.takasa = takasa;
@@ -33,7 +57,7 @@ class Trapezoid implements Shape{
 		return (jotei.length + katei.length) * takasa.length / 2.0;
 	}
 
-	public static Shape create() {
+	public static Shape create(DrawMethod method) {
         Scanner scn = system_in.SystemIn.getScanner();
 
         System.out.print("上辺 = ");
@@ -42,16 +66,17 @@ class Trapezoid implements Shape{
         LengthValue katei = new LengthValue(scn.nextDouble());
         System.out.print("高さ = ");
         LengthValue takasa = new LengthValue(scn.nextDouble());
-        Trapezoid trapezoid = new Trapezoid(jotei, katei, takasa);
+        Trapezoid trapezoid = new Trapezoid(method, jotei, katei, takasa);
 
 		return trapezoid;
 	}
 }
 
-class Circle implements Shape{
+class Circle extends Shape{
 	LengthValue radius;
 	
-	private Circle(LengthValue radius) {
+	private Circle(DrawMethod method, LengthValue radius) {
+		super(method);
 		this.radius = radius;
 	}
 
@@ -60,12 +85,12 @@ class Circle implements Shape{
 		return radius.length * radius.length * Math.PI;
 	}
 
-	public static Shape create() {
+	public static Shape create(DrawMethod method) {
 		Scanner scn = system_in.SystemIn.getScanner();
 
         System.out.print("半径？");
         LengthValue radius = new LengthValue(scn.nextDouble());;
-        Circle circle = new Circle(radius);
+        Circle circle = new Circle(method, radius);
         //scn.close();
         
 		return circle;
