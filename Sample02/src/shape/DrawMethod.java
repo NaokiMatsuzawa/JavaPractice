@@ -18,6 +18,5 @@ class DrawShapeInPS5 implements DrawMethod{
 	public void draw() {
 		System.out.println("PS5の何らかの画面で図形を描画します");
 	}
-	
 }
 

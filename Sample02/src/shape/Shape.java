@@ -1,7 +1,5 @@
 package shape;
 
-import java.util.Scanner;
-
 interface ShapeMethod {
 	public double calcArea();
 	public void draw();
@@ -45,7 +43,7 @@ class Trapezoid extends Shape{
 	LengthValue katei;
 	LengthValue takasa;
 	
-	private Trapezoid(DrawMethod method, LengthValue jotei, LengthValue katei, LengthValue takasa) {
+	Trapezoid(DrawMethod method, LengthValue jotei, LengthValue katei, LengthValue takasa) {
 		super(method);
 		this.jotei = jotei;
 		this.katei = katei;
@@ -56,26 +54,12 @@ class Trapezoid extends Shape{
 	public double calcArea() {
 		return (jotei.length + katei.length) * takasa.length / 2.0;
 	}
-
-	public static Shape create(DrawMethod method) {
-        Scanner scn = system_in.SystemIn.getScanner();
-
-        System.out.print("上辺 = ");
-        LengthValue jotei = new LengthValue(scn.nextDouble());
-        System.out.print("下辺 = ");
-        LengthValue katei = new LengthValue(scn.nextDouble());
-        System.out.print("高さ = ");
-        LengthValue takasa = new LengthValue(scn.nextDouble());
-        Trapezoid trapezoid = new Trapezoid(method, jotei, katei, takasa);
-
-		return trapezoid;
-	}
 }
 
 class Circle extends Shape{
 	LengthValue radius;
 	
-	private Circle(DrawMethod method, LengthValue radius) {
+	Circle(DrawMethod method, LengthValue radius) {
 		super(method);
 		this.radius = radius;
 	}
@@ -83,17 +67,6 @@ class Circle extends Shape{
 	@Override
 	public double calcArea() {
 		return radius.length * radius.length * Math.PI;
-	}
-
-	public static Shape create(DrawMethod method) {
-		Scanner scn = system_in.SystemIn.getScanner();
-
-        System.out.print("半径？");
-        LengthValue radius = new LengthValue(scn.nextDouble());;
-        Circle circle = new Circle(method, radius);
-        //scn.close();
-        
-		return circle;
 	}
 }
 
