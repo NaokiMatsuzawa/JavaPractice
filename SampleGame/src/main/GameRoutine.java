@@ -5,43 +5,61 @@ public class GameRoutine {
 	enum ROUTINE{
 		TITLE {
 			@Override
+			public void initialize() {
+				// TODO 自動生成されたメソッド・スタブ
+				
+			}
+			@Override
 			public void run() {
 				System.out.println("タイトルの処理");
 				GameRoutineInstance.instance.changeRoutine(IN_GAME);
 			}
 
-			@Override
-			public void initialize() {
-				// TODO 自動生成されたメソッド・スタブ
-				
-			}
+
 		},
 		IN_GAME {
 			console.ConsoleMineSweeper game;
 			@Override
-			public void run() {
-				assert(game != null);
-				if(!game.isGameOver()) {
-					game.run();
-				}
-				else {
-					GameRoutineInstance.instance.changeRoutine(GAMEOVER);
-				}
-			}
-			@Override
 			public void initialize() {
 				game = new console.ConsoleMineSweeper();
+			}
+			
+			@Override
+			public void run() {
+				assert(game != null);
+				game.run();
+				if(game.isGameClear()) {
+					GameRoutineInstance.instance.changeRoutine(GAMECLEAR);
+				}
+				if(game.isGameOver()) {
+					GameRoutineInstance.instance.changeRoutine(GAMEOVER);
+				}
 			}
 		},
 		GAMEOVER {
 			@Override
 			public void run() {
-				//System.out.println("ゲームオーバーの処理");				
 			}
 
 			@Override
 			public void initialize() {
 				System.out.println("GAME OVER");
+				System.out.println("リトライ処理とかは未実装です");				
+
+			}
+		},
+		GAMECLEAR{
+
+			@Override
+			public void initialize() {
+				System.out.println("GAME CLEAR");				
+				System.out.println("リトライ処理とかは未実装です");				
+
+			}
+
+			@Override
+			public void run() {
+
 			}
 		};
 		
@@ -52,7 +70,7 @@ public class GameRoutine {
 	private ROUTINE now_routine;
 	
 	private GameRoutine() {
-		now_routine = ROUTINE.IN_GAME;
+		now_routine = ROUTINE.TITLE;
 		now_routine.initialize();
 	}
 	

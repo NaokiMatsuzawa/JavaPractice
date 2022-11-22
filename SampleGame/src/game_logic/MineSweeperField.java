@@ -9,6 +9,7 @@ public class MineSweeperField {
 	private MineSweeperGridBase grids[][] = new MineSweeperGridBase[HEIGHT][WIDTH];
 	
 	public MineSweeperField() {
+		assert(WIDTH * HEIGHT > BOMB_NUM);
 		int bomb_count = 0;
 		Random rand = new Random();
 		int initialize_field[][] = new int[HEIGHT + 2][WIDTH + 2];
@@ -55,6 +56,20 @@ public class MineSweeperField {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isClear() {
+		for(var row : grids) {
+			for(var grid : row) {
+				if(grid.hasBomb()) {
+					continue;
+				}
+				if(!grid.isOpen()) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public void open(final int x, final int y) {

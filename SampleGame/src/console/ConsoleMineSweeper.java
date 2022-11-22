@@ -30,4 +30,8 @@ public class ConsoleMineSweeper {
 		final int y = console_input.getInputInt();
 		game_field.open(x, y);
 	}
+
+	public boolean isGameClear() {
+		return game_field.isClear();
+	}
 }
