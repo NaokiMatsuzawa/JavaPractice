@@ -1,9 +1,6 @@
 package main;
 
 
-
-import javax.swing.JFrame;
-
 public class GameRoutine {
 	enum ROUTINE{
 		TITLE {
@@ -61,13 +58,10 @@ public class GameRoutine {
 	}
 	
 	private ROUTINE now_routine;
-	private JFrame window;
 	
 	private GameRoutine() {
 		now_routine = ROUTINE.IN_GAME;
 		now_routine.initialize();
-		window = new JFrame();
-		window.setVisible(true);
 	}
 	
 	public void run() {
@@ -75,7 +69,7 @@ public class GameRoutine {
 	}
 	
 	public boolean isClosed() {
-		return !window.isVisible();
+		return now_routine == ROUTINE.GAMEOVER;
 	}
 	
 	private void changeRoutine(ROUTINE next_routine) {
