@@ -28,6 +28,6 @@ public class ConsoleMineSweeper {
 	private void input() {
 		final int x = console_input.getInputInt();
 		final int y = console_input.getInputInt();
-		game_field.getField()[y][x].open();
+		game_field.open(x, y);
 	}
 }

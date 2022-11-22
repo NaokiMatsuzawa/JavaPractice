@@ -56,4 +56,16 @@ public class MineSweeperField {
 		}
 		return false;
 	}
+
+	public void open(final int x, final int y) {
+		assert(x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT);
+		if(grids[y][x].isOpen()) return;
+		grids[y][x].open();
+		if(!grids[y][x].isZeroArround()) return;
+		
+		if(x > 0) open(x-1,y);
+		if(x < WIDTH-1) open(x+1, y);
+		if(y > 0) open(x, y-1);
+		if(y < HEIGHT-1) open(x, y+1);
+	}
 }

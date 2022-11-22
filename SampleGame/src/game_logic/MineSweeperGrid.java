@@ -29,6 +29,8 @@ abstract class MineSweeperGridBase implements MineSweeperGrid{
 		return grid_state == GridState.OPENED;
 	}
 	
+	abstract boolean isZeroArround();
+	
 	abstract String getGridString();
 	abstract public boolean hasBomb();
 }
@@ -55,7 +57,13 @@ class MineSweeperBombGrid extends MineSweeperGridBase{
 	String getGridString() {
 		return "B";
 	}
-	
+
+
+
+	@Override
+	boolean isZeroArround() {
+		return false;
+	}	
 }
 
 class MineSweeperNormalGrid extends MineSweeperGridBase{
@@ -78,6 +86,11 @@ class MineSweeperNormalGrid extends MineSweeperGridBase{
 	@Override
 	String getGridString() {
 		return String.valueOf(number_of_mines_arround);
+	}
+
+	@Override
+	boolean isZeroArround() {
+		return number_of_mines_arround == 0;
 	}
 	
 }
