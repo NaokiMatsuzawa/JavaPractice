@@ -1,6 +1,6 @@
 package console;
 
-public class ConsoleOutput {
+class ConsoleOutput {
 	public void DispMineSweeperField(game_logic.MineSweeperGrid[][] grids) {
 		for(game_logic.MineSweeperGrid[] cols: grids) {
 			for(game_logic.MineSweeperGrid grid : cols) {

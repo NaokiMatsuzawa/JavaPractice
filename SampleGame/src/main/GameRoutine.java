@@ -17,28 +17,20 @@ public class GameRoutine {
 			}
 		},
 		IN_GAME {
-			game_logic.MineSweeperField mine_sweeper_field;
-			
-			console.ConsoleInput console_input;
-			console.ConsoleOutput console_output;
+			console.ConsoleMineSweeper game;
 			@Override
 			public void run() {
-				assert(mine_sweeper_field != null);
-				console_output.DispMineSweeperField(mine_sweeper_field.getField());
-				final int x = console_input.getInputInt();
-				final int y = console_input.getInputInt();
-				mine_sweeper_field.getField()[y][x].open();
-				if(mine_sweeper_field.isGameover()) {
-					console_output.DispMineSweeperField(mine_sweeper_field.getField());
+				assert(game != null);
+				if(!game.isGameOver()) {
+					game.run();
+				}
+				else {
 					GameRoutineInstance.instance.changeRoutine(GAMEOVER);
 				}
 			}
 			@Override
 			public void initialize() {
-				mine_sweeper_field = new game_logic.MineSweeperField();
-				
-				console_input = new console.ConsoleInput();
-				console_output = new console.ConsoleOutput();
+				game = new console.ConsoleMineSweeper();
 			}
 		},
 		GAMEOVER {
