@@ -1,8 +1,8 @@
 package main;
 
-import javax.swing.JFrame;
 
-import in_game.TestMinsweeper;
+
+import javax.swing.JFrame;
 
 public class GameRoutine {
 	enum ROUTINE{
@@ -20,19 +20,28 @@ public class GameRoutine {
 			}
 		},
 		IN_GAME {
-			in_game.TestMinsweeper game;
+			game_logic.MineSweeperField mine_sweeper_field;
+			
+			console.ConsoleInput console_input;
+			console.ConsoleOutput console_output;
 			@Override
 			public void run() {
-				assert(game != null);
-				game.run();
-				if(game.isGameover()) {
+				assert(mine_sweeper_field != null);
+				console_output.DispMineSweeperField(mine_sweeper_field.getField());
+				final int x = console_input.getInputInt();
+				final int y = console_input.getInputInt();
+				mine_sweeper_field.getField()[y][x].open();
+				if(mine_sweeper_field.isGameover()) {
+					console_output.DispMineSweeperField(mine_sweeper_field.getField());
 					GameRoutineInstance.instance.changeRoutine(GAMEOVER);
 				}
 			}
 			@Override
 			public void initialize() {
-				// TODO 自動生成されたメソッド・スタブ
-				game = new TestMinsweeper();
+				mine_sweeper_field = new game_logic.MineSweeperField();
+				
+				console_input = new console.ConsoleInput();
+				console_output = new console.ConsoleOutput();
 			}
 		},
 		GAMEOVER {
@@ -43,8 +52,7 @@ public class GameRoutine {
 
 			@Override
 			public void initialize() {
-				// TODO 自動生成されたメソッド・スタブ
-				
+				System.out.println("GAME OVER");
 			}
 		};
 		
@@ -72,6 +80,7 @@ public class GameRoutine {
 	
 	private void changeRoutine(ROUTINE next_routine) {
 		now_routine = next_routine;
+		now_routine.initialize();
 	}
 
 	private static class GameRoutineInstance{
