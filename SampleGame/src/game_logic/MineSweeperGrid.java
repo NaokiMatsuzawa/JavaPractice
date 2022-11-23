@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public interface MineSweeperGrid {
-	enum GridType{
+	public enum GridType{
 		ZERO,
 		ONE,
 		TWO,
@@ -17,9 +17,6 @@ public interface MineSweeperGrid {
 		BOMB,
 		UNOPEN,
 	}
-	
-	void open();
-	GridType getGridType();
 }
 
 abstract class MineSweeperGridBase implements MineSweeperGrid{
@@ -29,11 +26,10 @@ abstract class MineSweeperGridBase implements MineSweeperGrid{
 	}
 	protected GridState grid_state = GridState.UNOPEN;
 	
-	@Override
 	public void open() {
 		grid_state = GridState.OPENED;
 	}
-	@Override
+	
 	public GridType getGridType() {
 		if(isOpen()) return getGridTypeSub();
 		return GridType.UNOPEN;

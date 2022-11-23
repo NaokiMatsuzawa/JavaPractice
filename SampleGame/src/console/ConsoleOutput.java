@@ -22,12 +22,12 @@ class ConsoleOutput {
 		map.put(GridType.UNOPEN, "*");
 	}
 	
-	public void DispMineSweeperField(game_logic.MineSweeperGrid[][] grids) {		
-		for(game_logic.MineSweeperGrid[] cols: grids) {
-			for(game_logic.MineSweeperGrid grid : cols) {
-				System.out.print(map.get(grid.getGridType()));
+	public void DispMineSweeperField(game_logic.MineSweeperField field) {		
+		for(int y = 0; y < field.getHeight(); ++y) {
+			for(int x = 0; x < field.getHeight(); ++x) {
+				System.out.print(map.get(field.getGridType(x, y)));
 			}
-			System.out.println();
+			System.out.println("");
 		}
 	}
 }

@@ -22,7 +22,7 @@ public class ConsoleMineSweeper {
 	}
 	
 	private void disp() {
-		console_output.DispMineSweeperField(game_field.getField());
+		console_output.DispMineSweeperField(game_field);
 	}
 	
 	private void input() {

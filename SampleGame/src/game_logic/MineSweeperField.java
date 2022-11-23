@@ -43,8 +43,11 @@ public class MineSweeperField {
 		}
 	}
 	
-	public MineSweeperGrid[][] getField() {
-		return grids;
+	public int getWidth() { return WIDTH;}
+	public int getHeight() {return HEIGHT;}
+	
+	public final MineSweeperGrid.GridType getGridType(final int x, final int y){
+		return grids[y][x].getGridType();
 	}
 
 	public boolean isGameover() {
