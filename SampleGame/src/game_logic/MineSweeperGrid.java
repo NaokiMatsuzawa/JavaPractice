@@ -17,6 +17,8 @@ public interface MineSweeperGrid {
 		BOMB,
 		UNOPEN,
 	}
+	
+	public void open();
 }
 
 abstract class MineSweeperGridBase implements MineSweeperGrid{
@@ -26,6 +28,7 @@ abstract class MineSweeperGridBase implements MineSweeperGrid{
 	}
 	protected GridState grid_state = GridState.UNOPEN;
 	
+	@Override
 	public void open() {
 		grid_state = GridState.OPENED;
 	}

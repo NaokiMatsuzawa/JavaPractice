@@ -4,7 +4,6 @@ package main;
 public class GameRoutine {
 	enum ROUTINE{
 		TITLE {
-			test_window.TestWindow window;
 			@Override
 			public void initialize() {
 				// TODO 自動生成されたメソッド・スタブ
@@ -14,16 +13,15 @@ public class GameRoutine {
 			public void run() {
 				System.out.println("タイトルの処理");
 				GameRoutineInstance.instance.changeRoutine(IN_GAME);
-				window = new test_window.TestWindow();
 			}
 
 
 		},
 		IN_GAME {
-			console.ConsoleMineSweeper game;
+			test_window.TestWindowGame game;
 			@Override
 			public void initialize() {
-				game = new console.ConsoleMineSweeper();
+				game = new test_window.TestWindowGame();
 			}
 			
 			@Override
