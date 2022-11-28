@@ -18,19 +18,40 @@ public interface MineSweeperGrid {
 		UNOPEN,
 	}
 	
-	public void open();
+	public void open_request();
+	public void flag_request();
 }
 
 abstract class MineSweeperGridBase implements MineSweeperGrid{
 	enum GridState{
 		UNOPEN,
 		OPENED,
+		FLAGED,
 	}
 	protected GridState grid_state = GridState.UNOPEN;
 	
+	private static final  Map<GridState, GridState> next_state_by_open_request = new HashMap<GridState, GridState>();
+	private static final Map<GridState, GridState> next_state_by_flag_request= new HashMap<GridState, GridState>();
+	
+	public MineSweeperGridBase() {
+		next_state_by_open_request.put(GridState.UNOPEN, GridState.OPENED);
+		next_state_by_open_request.put(GridState.UNOPEN, GridState.OPENED);
+		next_state_by_open_request.put(GridState.FLAGED, GridState.FLAGED);
+		
+		next_state_by_flag_request.put(GridState.UNOPEN,  GridState.FLAGED);
+		next_state_by_flag_request.put(GridState.FLAGED,  GridState.UNOPEN);
+		next_state_by_flag_request.put(GridState.OPENED,  GridState.OPENED);
+		
+	}
+	
 	@Override
-	public void open() {
-		grid_state = GridState.OPENED;
+	public void open_request() {
+		grid_state = next_state_by_open_request.get(grid_state);
+	}
+	
+	@Override
+	public void flag_request() {
+		grid_state = next_state_by_flag_request.get(grid_state);
 	}
 	
 	public GridType getGridType() {
@@ -75,6 +96,7 @@ class MineSweeperNormalGrid extends MineSweeperGridBase{
 	private static final Map<Integer, GridType> map = new HashMap<Integer, GridType>();
 	
 	public MineSweeperNormalGrid(int number_of_mines_around) {
+		super();
 		assert(number_of_mines_around >= 0 && number_of_mines_around <= 8);
 		this.number_of_mines_around = number_of_mines_around;
 		map.put(0, GridType.ZERO);
