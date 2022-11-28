@@ -2,8 +2,8 @@ package test_window;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import game_logic.MineSweeperGrid.GridType;
 
-class TestButton extends JButton implements ActionListener{
+class TestButton extends JButton implements MouseListener{
 	private final TestWindow window;
 	private final int x;
 	private final int y;
@@ -25,7 +25,7 @@ class TestButton extends JButton implements ActionListener{
 		this.window = testWindow;
 		this.x = x;
 		this.y = y;
-		addActionListener(this);
+		addMouseListener(this);
 		setPreferredSize(new Dimension(32, 32));
 		setSize(32, 32);
 		setText("");
@@ -41,23 +41,52 @@ class TestButton extends JButton implements ActionListener{
 		map.put(GridType.SEVEN, "7");
 		map.put(GridType.EIGHT, "8");
 		map.put(GridType.BOMB, "B");
-		map.put(GridType.UNOPEN, "*");
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		window.buttonClicked(x, y);
+		map.put(GridType.UNOPEN, "");
+		map.put(GridType.FLAGED, "F");
 	}
 	
 	void buttonAutoOpen(GridType type) {
-		if(type == GridType.UNOPEN) {
+		if(type == GridType.UNOPEN || type == GridType.FLAGED) {
+			setText(map.get(type));
 			setEnabled(true);
 			return;
 		}
-		if(!isEnabled()) return;
-		
 		setText(map.get(type));
+		if(!isEnabled()) return;		
 		setEnabled(false);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getButton()==MouseEvent.BUTTON1) {
+			window.buttonClicked(x, y);
+		}
+		else {
+			window.buttonFlagClicked(x, y);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 	
 }
@@ -93,6 +122,10 @@ class TestWindow{
 	
 	void buttonClicked(final int x, final int y) {
 		game.buttonClicked(x, y);
+	}
+	
+	void buttonFlagClicked(final int x, final int y) {
+		game.flagClicked(x, y);
 	}
 	
 	void buttonAutoOpen(final int x, final int y, GridType type) {

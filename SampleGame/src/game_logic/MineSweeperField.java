@@ -82,6 +82,7 @@ public class MineSweeperField {
 		assert(x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT);
 		if(grids[y][x].isOpen()) return;
 		grids[y][x].open_request();
+		if(!grids[y][x].isOpen()) return;
 		if(!grids[y][x].isZeroArround()) return;
 		
 		open(x-1,y-1);
@@ -92,5 +93,9 @@ public class MineSweeperField {
 		open(x+1,y-1);
 		open(x+1,y);
 		open(x+1,y+1);
+	}
+
+	public void flag_request(int x, int y) {
+		grids[y][x].flag_request();
 	}
 }

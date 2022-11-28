@@ -16,6 +16,7 @@ public interface MineSweeperGrid {
 		EIGHT,
 		BOMB,
 		UNOPEN,
+		FLAGED,
 	}
 	
 	public void open_request();
@@ -56,6 +57,7 @@ abstract class MineSweeperGridBase implements MineSweeperGrid{
 	
 	public GridType getGridType() {
 		if(isOpen()) return getGridTypeSub();
+		if(grid_state == GridState.FLAGED) return GridType.FLAGED;
 		return GridType.UNOPEN;
 	}	
 

@@ -30,4 +30,8 @@ public class TestWindowGame {
 			}
 		}
 	}
+
+	public void flagClicked(int x, int y) {
+		game.flag_request(x, y);
+	}
 }
