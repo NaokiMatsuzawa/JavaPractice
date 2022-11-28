@@ -1,5 +1,7 @@
 package test_window;
 
+import game_logic.MineSweeperGrid.GridType;
+
 public class TestWindowGame {
 	private TestWindow window;
 	private game_logic.MineSweeperField game;
@@ -33,5 +35,9 @@ public class TestWindowGame {
 
 	public void flagClicked(int x, int y) {
 		game.flag_request(x, y);
+	}
+
+	public GridType getGridType(int x, int y) {
+		return game.getGridType(x, y);
 	}
 }

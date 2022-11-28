@@ -47,15 +47,17 @@ class TestButton extends JButton implements MouseListener{
 	
 	void buttonAutoOpen(GridType type) {
 		if(type == GridType.UNOPEN || type == GridType.FLAGED) {
-			setText(map.get(type));
 			setEnabled(true);
 			return;
 		}
-		setText(map.get(type));
 		if(!isEnabled()) return;		
 		setEnabled(false);
 	}
 
+	void updateText() {
+		setText(map.get(window.getGridType(x, y)));
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton()==MouseEvent.BUTTON1) {
@@ -64,6 +66,7 @@ class TestButton extends JButton implements MouseListener{
 		else {
 			window.buttonFlagClicked(x, y);
 		}
+		window.refresh();
 	}
 
 	@Override
@@ -120,6 +123,14 @@ class TestWindow{
 		window.add(panel);
 	}
 	
+	void refresh() {
+		for(TestButton[] col : buttons) {
+			for(TestButton button : col) {
+				button.updateText();
+			}
+		}
+	}
+
 	void buttonClicked(final int x, final int y) {
 		game.buttonClicked(x, y);
 	}
@@ -131,5 +142,9 @@ class TestWindow{
 	void buttonAutoOpen(final int x, final int y, GridType type) {
 		assert(type != null);
 		buttons[y][x].buttonAutoOpen(type);
+	}
+	
+	GridType getGridType(final int x, final int y) {
+		return game.getGridType(x, y);
 	}
 }
